@@ -2,20 +2,6 @@ import { chall2 } from "./chall2.ts";
 import { chall3 } from "./chall3.ts";
 import { ReqBody } from "./types.ts";
 
-// ユーザのGETリクエストに関するクエリパラメータに応じて、適切なファイルを返しています
-function getRouter(challType: string) {
-  switch (challType) {
-    case "1":
-      return "public/chall1.html";
-    case "2":
-      return "public/chall2.html";
-    case "3":
-      return "public/chall3.html";
-    default:
-      return "public/index.html";
-  }
-}
-
 // ユーザのPOSTリクエストに関するクエリパラメータに応じて、適切な関数を呼び出しています
 function postRouter(challType: string, req: ReqBody) {
   switch (challType) {
@@ -39,15 +25,7 @@ export default async (req: Request) => {
   const query = Object.fromEntries(url.searchParams.entries());
 
   const method = req.method.toUpperCase();
-  if (method === "GET") {
-    const path = getRouter(query.chall);
-    const html = await Deno.readTextFile(path);
-    return new Response(html, {
-      headers: {
-        "content-type": "text/html",
-      },
-    });
-  } else if (method === "POST") {
+  if (method === "POST") {
     if (typeof query.chall === "undefined") {
       return new Response("param 'chall' is required!");
     }
