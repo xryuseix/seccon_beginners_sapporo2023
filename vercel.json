@@ -5,5 +5,5 @@
       "includeFiles": "api/*.ts"
     }
   },
-  "rewrites": [{ "source": "/(.*)", "destination": "/api/server" }]
+  "rewrites": [{ "source": "/:chall", "destination": "/api/server" }]
 }

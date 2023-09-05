@@ -20,7 +20,6 @@ export function chall3(req: Chall3ReqBody): ChallRes {
   } catch (_) {
     return { error: `password must be number` };
   }
-  console.log(password);
 
   // 2桁か確認
   if (password < 0 || password > 99) {
