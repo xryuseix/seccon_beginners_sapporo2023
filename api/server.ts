@@ -36,6 +36,9 @@ export default async (req: Request) => {
     } catch (e) {
       return new Response(e.message);
     }
+  }
+  if (method === "GET") {
+    return;
   } else {
     return new Response(`method ${method} is not allowed!`);
   }
