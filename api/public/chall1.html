@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>問題1</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/2.3.1/jsencrypt.min.js"
+      integrity="sha512-zDvrqenA0eFJZCxBsryzUZcvihvNlEXbteMv62yRxdhR4s7K1aaz+LjsRyfk6M+YJLyAJEuuquIAI8I8GgLC8A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <style>
+      body {
+        background-color: #badc78;
+      }
+    </style>
+  </head>
+
+  <body class="flex items-center justify-center h-screen">
+    <div>
+      <h1 class="text-center text-3xl font-bold">問題1</h1>
+      <h2 class="text-center text-lg mt-4">ダウンロードするHTMLを書き換える</h2>
+
+      <p class="text-center">
+        このWebページは秘密のメッセージを復号することができます。秘密のメッセージを復号してフラグを取ってください！
+      </p>
+      <p class="text-center">
+        実は、私はとある経路で秘密鍵を手に入れました。それがこちらです。HTML内の<code
+          >const privateKey = `const privateKey = `-----BEGIN RSA PRIVATE KEY-----secret-----END RSA PRIVATE KEY-----`; // Its fake key</code
+        >という箇所の文字列を以下の秘密鍵に書き換えて、フラグを手に入れてください！
+      </p>
+      <div class="mt-8 mx-auto w-2/3 overflow-auto bg-white rounded p-3">
+        <pre>
+-----BEGIN RSA PRIVATE KEY-----
+MIICXQIBAAKBgHngYoaO+ID0KZOj9Svg8CFxJdFo33tAhrj0E1bstTFmmU3tsNJZ
+NoAmMIGhjL+yrpc0y86BQ1iSYfWABB2GUH+tF3YFavd3c3MunLdXvtpThVIuCJsX
+G+64/egDxVBryV3juxWqNsid9czwB3ab341LPQbgHz0rtIQ8zIWo1MTvAgMBAAEC
+gYBHrMyEseQ3gmBJMa1oBrtyD2bcRr7Xb1VLxE7zWfYdfWc/S0AoFMtWhh8UvXtW
+6bB/wE7zvVVr63qstIK3ElyYSGItf4fbla013oXyiDrkIgN1r9TZwJbddq5lHHn9
+HZlCka2Atte2/3+V/kzqhvbfGw7pz3ShAgBJvfWXtfUwMQJBAMcwe97FRuooy6VJ
+QqgTdil4PjZ4LNNeGkgqHAl4MrKzgvkvulgPdXTsYFEV25ujNIyh5TKzCW/T0kqA
++v6m23UCQQCcowQTgksJfmLb3Ky3w27rIGHHAb9vUqpwZzaJsmyYFbwGMDYOcO8H
+dreEm8Hl23bmcfinQYDpNUcBxo49v2ZTAkEAv4xpYmYV9vI6O/2Cgz0L4X9HXHwe
+pziUT5dnFNgo8N5d8iGqsipTipgRW4iIglflHeRGE4ZGaeqqDImSVTbCTQJBAJbw
++FKcchbZ9gYM51vGNrLZ559Qbdum+5uJuqKCj+cWurPz7YOJDK5SlpJxTi5kiHWV
+SppSoxkYQC7T2epi8QUCQQCo2O0ajOJ1MG1fqx281x+WVQ/6o3YKO55KFN9waTnu
+sYb8Vr8QaWBAbrQMNS6XFg2LdkAR4vsmUiOPF50io9yo
+-----END RSA PRIVATE KEY-----</pre
+        >
+      </div>
+
+      <script>
+        const encrypt = new JSEncrypt();
+
+        // ここから下のコメントは暗号文を生成するためのコードです。
+        // 問題を解く上ではあまり関係がありませんが、一応公開します。
+
+        // function rsaEncrypt(message) {
+        //   const publicKey = `"-----BEGIN PUBLIC KEY-----
+        //     MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgHngYoaO+ID0KZOj9Svg8CFxJdFo
+        //     33tAhrj0E1bstTFmmU3tsNJZNoAmMIGhjL+yrpc0y86BQ1iSYfWABB2GUH+tF3YF
+        //     avd3c3MunLdXvtpThVIuCJsXG+64/egDxVBryV3juxWqNsid9czwB3ab341LPQbg
+        //     Hz0rtIQ8zIWo1MTvAgMBAAE=
+        //     -----END PUBLIC KEY-----"`;
+        //   encrypt.setPublicKey(publicKey);
+
+        //   const encrypted = encrypt.encrypt(message);
+        //   console.log({ encrypted, publicKey });
+        //   return { encrypted, publicKey };
+        // }
+
+        // const message = "{{メッセージはハッキングされないように消しました}}";
+        // const { encrypted, publicKey } = rsaEncrypt(message);
+
+        const encrypted = `"NyhFM9QogUHLlnGVU1iQwlp+1hexQVH3jDkS3DzgGELF5YvFC1pAt2VjJqYKNu//yJuEG29HE8j4Ab+F3OZEp9uohoKNa6tlpxQDQuSan+3ur9lE6gsMHFqh5LAIAaQhqJgb+fEhNTp4W+cfS0yyH/VTGin4MMR7/0c93Kz/q34="`;
+        // ここの下のコードを書き換えてください
+        const privateKey = `-----BEGIN RSA PRIVATE KEY-----
+secret
+-----END RSA PRIVATE KEY-----`; // Its fake key
+
+        function rsaDecrypt(encrypted, privateKey) {
+          encrypt.setPrivateKey(privateKey);
+          const decrypted = encrypt.decrypt(encrypted);
+          return decrypted;
+        }
+
+        const decrypted = rsaDecrypt(encrypted, privateKey);
+        if(decrypted === false) {
+            alert("秘密鍵が間違っています。問題文をよく読んで、秘密鍵を書き換えてください。");
+        } else {
+            alert("フラグは " + decrypted + " です。");
+        }
+      </script>
+    </div>
+  </body>
+</html>

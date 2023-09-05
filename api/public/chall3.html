@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Input</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #badc78;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="flex justify-center items-center h-screen">
+      <div class="max-w-md w-full mx-auto px-4">
+        <form
+          id="password-form"
+          class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4"
+        >
+          <div class="mb-4">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="password"
+              >パスワード(数字2桁)</label
+            >
+            <input
+              id="password"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              maxlength="2"
+              oninput="value = value.replace(/[^0-9]+/i,'');"
+            />
+          </div>
+          <div class="text-center">
+            <button
+              id="submit-btn"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button"
+            >
+              送信
+            </button>
+          </div>
+        </form>
+        <div
+          id="response"
+          class="hidden bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4"
+        >
+          <div id="response1"></div>
+          <div id="response2"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const submitBtn = document.getElementById("submit-btn");
+      const responseDiv = document.getElementById("response");
+      const response1Div = document.getElementById("response1");
+      const response2Div = document.getElementById("response2");
+
+      submitBtn.addEventListener("click", () => {
+        const passwordInput = document.getElementById("password").value;
+
+        fetch("/?chall=3", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            password: passwordInput,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            response1Div.textContent = `updated: ${new Date().toISOString()}`;
+            response2Div.textContent = JSON.stringify(data, "\t", 2);
+            responseDiv.classList.remove("hidden");
+          })
+          .catch((error) => {
+            response2Div.textContent = `エラーが発生しました。${error.message}`;
+            responseDiv.classList.remove("hidden");
+          });
+      });
+    </script>
+  </body>
+</html>

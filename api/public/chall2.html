@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>問題2</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/2.3.1/jsencrypt.min.js"
+      integrity="sha512-zDvrqenA0eFJZCxBsryzUZcvihvNlEXbteMv62yRxdhR4s7K1aaz+LjsRyfk6M+YJLyAJEuuquIAI8I8GgLC8A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <style>
+      body {
+        background-color: #badc78;
+      }
+    </style>
+  </head>
+
+  <body class="flex items-center justify-center h-screen">
+    <div class="w-full text-center">
+      <h1 class="text-center text-3xl font-bold">問題2</h1>
+      <h2 class="text-center text-lg mt-4">HTTP リクエストを書き換える</h2>
+      <br />
+      <hr />
+      <br />
+      <div>
+        今度はHTMLを書き換えず、送信したHTTPリクエストの中身を書き換えてみよう！
+      </div>
+
+      <form id="form" method="post" action="/?chall=2" class="text-center">
+        <label for="fruitSelect">商品:</label>
+        <select id="fruitSelect" name="fruit">
+          <option value="apple">apple(残り10個)</option>
+          <option value="banana">banana(残り20個)</option>
+          <option value="flag">flag(残り0個)</option>
+        </select>
+        <br /><br />
+        <label for="quantityInput">購入数:</label>
+        <input
+          type="number"
+          id="quantityInput"
+          name="quantity"
+          min="1"
+          max="100"
+          value="1"
+        /><br /><br />
+        <input type="submit" value="Submit" class="p-1" />
+      </form>
+      <br />
+      <p class="text-center">Response Message</p>
+      <pre
+        id="res"
+        class="text-left h-32 w-1/2 bg-white overflow-auto rounded m-auto"
+      ></pre>
+    </div>
+  </body>
+  <script>
+    document
+      .getElementById("form")
+      .addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const form = event.target;
+        switch (form.elements.fruit.value) {
+          case "apple":
+            if (form.elements.quantity.value > 10) {
+              alert("残りの在庫より多く購入することはできません");
+              return;
+            }
+            break;
+          case "banana":
+            if (form.elements.quantity.value > 20) {
+              alert("残りの在庫より多く購入することはできません");
+              return;
+            }
+            break;
+          case "flag":
+            if (form.elements.quantity.value > 0) {
+              alert("残りの在庫より多く購入することはできません");
+              return;
+            }
+            break;
+        }
+        const data = {
+          product: form.elements.fruit.value,
+          count: Number(form.elements.quantity.value),
+        };
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", form.action, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify(data));
+
+        xhr.onload = function () {
+          console.log(xhr.responseText);
+          const res = JSON.parse(xhr.response);
+          document.getElementById("res").innerText = JSON.stringify(
+            res,
+            "\t",
+            2
+          );
+        };
+      });
+  </script>
+</html>

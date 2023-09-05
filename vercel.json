@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "api/server.ts": {
+      "runtime": "vercel-deno@3.0.4",
+      "includeFiles": "api/*.ts"
+    }
+  },
+  "rewrites": [{ "source": "/(.*)", "destination": "/api/server" }]
+}
