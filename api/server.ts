@@ -27,18 +27,22 @@ export default async (req: Request) => {
   const method = req.method.toUpperCase();
   if (method === "POST") {
     if (typeof query.chall === "undefined") {
-      return new Response("param 'chall' is required!");
+      return new Response("path param is required!");
     }
     try {
       const body = JSON.parse(await new Response(req.body).text());
       const result = postRouter(query.chall, body);
-      return new Response(JSON.stringify(result));
+      if (result instanceof Response) {
+        return result;
+      } else {
+        return new Response(JSON.stringify(result));
+      }
     } catch (e) {
       return new Response(e.message);
     }
   }
   if (method === "GET") {
-    return;
+    return new Response();
   } else {
     return new Response(`method ${method} is not allowed!`);
   }

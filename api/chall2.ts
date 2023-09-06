@@ -38,7 +38,7 @@ export function chall2(req: Chall2ReqBody): ChallRes {
   // 【ここが一番重要】なので、よく考えてみよう！
   if (products[product] - count >= 0) {
     if (product === "flag") {
-      return { flag: "flag{this_is_flag}", message: "fantastic!" };
+      return { flag: "ctf4b{r3qu35t_15_r3wr1t4bl3}", message: "fantastic!" };
     } else {
       return { message: `ok, you got '${count}' of '${product}'` };
     }

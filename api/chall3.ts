@@ -27,7 +27,7 @@ export function chall3(req: Chall3ReqBody): ChallRes {
   }
 
   if (password === 85) {
-    return { flag: "flag{this_is_flag}", message: "fantastic!" };
+    return { flag: "ctf4b{y0u_4r3_burp_m@5t3r!}", message: "fantastic!" };
   } else {
     return { error: `wrong password` };
   }
