@@ -1,6 +1,7 @@
 // ここはimportなので気にしなくて大丈夫です
 import { z } from "https://deno.land/x/zod@v3.16.1/mod.ts";
 import { ChallRes } from "./types.ts";
+import { getFlag } from "./flags.ts";
 
 // ここから下はTypeScriptの型宣言で、HTTP リクエストボディにproductとcountがあることを示しています
 const Chall2ReqBodySchema = z.object({
@@ -38,7 +39,7 @@ export function chall2(req: Chall2ReqBody): ChallRes {
   // 【ここが一番重要】なので、よく考えてみよう！
   if (products[product] - count >= 0) {
     if (product === "flag") {
-      return { flag: "ctf4b{r3qu35t_15_r3wr1t4bl3}", message: "fantastic!" };
+      return { flag: getFlag('chall2'), message: "fantastic!" };
     } else {
       return { message: `ok, you got '${count}' of '${product}'` };
     }

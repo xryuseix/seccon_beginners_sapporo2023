@@ -1,6 +1,8 @@
 // ここはimportなので気にしなくて大丈夫です
 import { z } from "https://deno.land/x/zod@v3.16.1/mod.ts";
 import { ChallRes } from "./types.ts";
+import { password as pw } from "./flags.ts";
+import { getFlag } from "./flags.ts";
 
 // ここから下はTypeScriptの型宣言で、HTTP リクエストボディにproductとcountがあることを示しています
 const Chall2ReqBodySchema = z.object({
@@ -16,7 +18,7 @@ export function chall3(req: Chall3ReqBody): ChallRes {
   }
   let password;
   try {
-    password = Number(parseResult.data.password)
+    password = Number(parseResult.data.password);
   } catch (_) {
     return { error: `password must be number` };
   }
@@ -26,8 +28,8 @@ export function chall3(req: Chall3ReqBody): ChallRes {
     return { error: `password must be 2 digits` };
   }
 
-  if (password === 85) {
-    return { flag: "ctf4b{y0u_4r3_burp_m@5t3r!}", message: "fantastic!" };
+  if (password === pw) {
+    return { flag: getFlag('chall3'), message: "fantastic!" };
   } else {
     return { error: `wrong password` };
   }
